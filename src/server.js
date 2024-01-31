@@ -4,15 +4,13 @@ import express from 'express'
 import { CONNECT_DB, GET_DB, CLOSE_DB } from '~/config/mongodb'
 import exitHook from 'async-exit-hook'
 import { env } from '~/config/environment'
+import { boardIndex } from '~/routes/v1'
 
 
 const START_SERVER = () => {
   const app = express()
 
-  app.get('/', async (req, res) => {
-    console.log(await GET_DB().listCollections().toArray())
-    res.end('<h1>Hello </h1><hr>')
-  })
+  app.use('/v1', boardIndex)
 
   app.listen(env.APP_PORT, env.APP_HOST, () => {
 
