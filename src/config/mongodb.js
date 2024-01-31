@@ -1,5 +1,3 @@
-//atgroupdn
-//hx2AIxiKdrL2B9Ht
 
 import { MongoClient, ServerApiVersion } from 'mongodb'
 import { env } from '~/config/environment'
