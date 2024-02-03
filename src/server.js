@@ -5,6 +5,7 @@ import { CONNECT_DB, GET_DB, CLOSE_DB } from '~/config/mongodb'
 import exitHook from 'async-exit-hook'
 import { env } from '~/config/environment'
 import { boardIndex } from '~/routes/v1'
+import { errorHandlingMiddleware } from './middlewares/errorHandlingMiddleware'
 
 
 const START_SERVER = () => {
@@ -13,6 +14,8 @@ const START_SERVER = () => {
   app.use(express.json())
 
   app.use('/v1', boardIndex)
+
+  app.use(errorHandlingMiddleware)
 
   app.listen(env.APP_PORT, env.APP_HOST, () => {
 
@@ -36,10 +39,4 @@ const START_SERVER = () => {
   }
 })()
 
-// CONNECT_DB()
-//   .then(() => console.log('connected'))
-//   .then(() => START_SERVER())
-//   .catch(e => {
-//     console.error(e)
-//     process.exit(0)
-//   })
+
