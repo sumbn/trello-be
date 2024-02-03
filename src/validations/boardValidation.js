@@ -11,15 +11,16 @@ const createNew = async (req, res, next) => {
   try {
     console.log('req:', req.body)
 
-    await correctCondition.validateAsync(req.body)
+    await correctCondition.validateAsync(req.body, {abortEarly: false})
 
     // next()
 
     res.status(StatusCodes.CREATED).json({ message: 'api post from validation' })
   } catch (e) {
     console.log(e)
+    console.log(new Error(e))
     res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
-      error : new Error(e).message
+      error_message : new Error(e).message
     })
   }
 

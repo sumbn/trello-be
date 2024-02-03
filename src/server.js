@@ -10,6 +10,8 @@ import { boardIndex } from '~/routes/v1'
 const START_SERVER = () => {
   const app = express()
 
+  app.use(express.json())
+
   app.use('/v1', boardIndex)
 
   app.listen(env.APP_PORT, env.APP_HOST, () => {
